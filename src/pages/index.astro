@@ -1,57 +1,129 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import ScrollAnimation from '../components/ScrollAnimation.jsx';
+import SmoothScroll from '../components/SmoothScroll.jsx';
 ---
 
-<Layout title="Lenis Scroll Animation - Astro">
-  <main>
-    <h1>Lenis Scroll Demo</h1>
+<Layout title="Fixed Hero with Color Fade">
+  <SmoothScroll client:load>
     <ScrollAnimation client:load />
-  </main>
+  </SmoothScroll>
 </Layout>
 
-<style>
-  main {
-    min-height: 300vh;
+<style is:global>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+  
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: 'Inter', sans-serif;
+    line-height: 1.6;
   }
 
-  :global(.scroll-container) {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  .scroll-container {
+    width: 100%;
   }
-
-  :global(.spacer) {
+  
+  .hero-section {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
     height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 24px;
+    overflow: hidden;
   }
-
-  :global(.animated-section) {
-    height: 80vh;
-    width: 80%;
+  
+  .image-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+  }
+  
+  .hero-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .color-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
     background-color: #3498db;
-    color: white;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    padding: 2rem;
-    border-radius: 10px;
     opacity: 0;
-    transform: scale(0.8);
-    transition: transform 0.1s ease, opacity 0.1s ease;
+    transition: opacity 0.1s ease;
   }
-
-  :global(.animated-section h2) {
-    font-size: 2rem;
+  
+  .hero-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: white;
+    z-index: 10;
+  }
+  
+  .hero-content h1 {
+    font-size: 4rem;
     margin-bottom: 1rem;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.7);
+    font-weight: 700;
+  }
+  
+  .hero-content p {
+    font-size: 1.25rem;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.7);
   }
 
-  :global(.animated-section p) {
-    font-size: 1.2rem;
+  .content-section {
+    position: relative;
+    z-index: 5;
+    margin-top: 100vh; /* Start content below the hero */
+    background-color: white;
+    min-height: 200vh; /* Make sure there's enough content to scroll */
+  }
+
+  .scrolling-content {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 4rem 2rem;
+  }
+
+  .scrolling-content h2 {
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+    color: #333;
+  }
+
+  .scrolling-content p {
+    font-size: 1.1rem;
+    margin-bottom: 1.5rem;
+    color: #666;
+  }
+
+  /* Responsive design */
+  @media (max-width: 768px) {
+    .hero-content h1 {
+      font-size: 2.5rem;
+    }
+
+    .hero-content p {
+      font-size: 1rem;
+    }
+
+    .scrolling-content {
+      padding: 2rem 1rem;
+    }
+
+    .scrolling-content h2 {
+      font-size: 2rem;
+    }
   }
 </style>

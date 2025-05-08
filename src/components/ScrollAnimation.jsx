@@ -1,53 +1,73 @@
 import { useEffect, useRef } from 'react';
-import Lenis from '@studio-freight/lenis';
 
 export default function ScrollAnimation() {
-  const sectionRef = useRef(null);
+  const heroRef = useRef(null);
+  const overlayRef = useRef(null);
 
   useEffect(() => {
-    const lenis = new Lenis();
-
-    const section = sectionRef.current;
-
     function onScroll() {
-      if (!section) return;
+      if (!heroRef.current || !overlayRef.current) return;
 
-      const rect = section.getBoundingClientRect();
-      const scrollPercentage = 1 - (rect.top / window.innerHeight);
+      // Calculate scroll progress based on viewport
+      const scrollY = window.scrollY;
+      const windowHeight = window.innerHeight;
 
-      if (scrollPercentage >= 0 && scrollPercentage <= 1) {
-        // Animate opacity based on scroll position
-        section.style.opacity = scrollPercentage;
-        // Animate scale based on scroll position
-        section.style.transform = `scale(${0.8 + (scrollPercentage * 0.2)})`;
+      // Start fading in the overlay once we've scrolled 20% of viewport
+      const fadeStart = windowHeight * 0.2;
+      // Complete the fade at 80% of viewport height
+      const fadeEnd = windowHeight * 0.8;
+
+      let progress = 0;
+
+      if (scrollY >= fadeStart) {
+        progress = Math.min((scrollY - fadeStart) / (fadeEnd - fadeStart), 1);
       }
+
+      // Apply the fade effect
+      overlayRef.current.style.opacity = progress;
     }
 
-    lenis.on('scroll', onScroll);
+    window.addEventListener('scroll', onScroll, { passive: true });
 
-    function raf(time) {
-      lenis.raf(time);
-      requestAnimationFrame(raf);
-    }
-
-    requestAnimationFrame(raf);
+    // Initial call to set the correct state
+    onScroll();
 
     return () => {
-      lenis.off('scroll', onScroll);
-      lenis.destroy();
+      window.removeEventListener('scroll', onScroll);
     };
   }, []);
 
   return (
     <div className="scroll-container">
-      <section className="spacer">Scroll Down</section>
-
-      <section ref={sectionRef} className="animated-section">
-        <h2>This section fades and scales in as you scroll</h2>
-        <p>Powered by Lenis smooth scrolling</p>
+      {/* Fixed hero section */}
+      <section ref={heroRef} className="hero-section">
+        <div className="image-container">
+          <img
+            src="/src/assets/max-running-header.webp"
+            alt="Hero"
+            className="hero-image"
+          />
+          <div ref={overlayRef} className="color-overlay"></div>
+        </div>
+        <div className="hero-content">
+          <h1>Your Hero Title</h1>
+          <p>This image stays fixed while you scroll</p>
+        </div>
       </section>
 
-      <section className="spacer">Keep Scrolling</section>
+      {/* Content that scrolls over the hero */}
+      <section className="content-section">
+        <div className="scrolling-content">
+          <h2>Content Section</h2>
+          <p>This content scrolls over the fixed hero image</p>
+          <p>As you scroll, the hero image gradually fades to a blue color</p>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+          {/* Add more content to make scrolling visible */}
+          {Array(10).fill().map((_, i) => (
+            <p key={i}>More scrolling content...</p>
+          ))}
+        </div>
+      </section>
     </div>
   );
 }
