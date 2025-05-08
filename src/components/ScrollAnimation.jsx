@@ -1,35 +1,56 @@
 import { useEffect, useRef } from 'react';
 
 export default function ScrollAnimation() {
-  const heroRef = useRef(null);
+  const containerRef = useRef(null);
   const overlayRef = useRef(null);
+  const titleRef = useRef(null);
+  const subtitleRef = useRef(null);
+  const circleRef = useRef(null);
 
   useEffect(() => {
     function onScroll() {
-      if (!heroRef.current || !overlayRef.current) return;
+      if (!containerRef.current || !overlayRef.current) return;
 
-      // Calculate scroll progress based on viewport
       const scrollY = window.scrollY;
       const windowHeight = window.innerHeight;
+      const documentHeight = document.documentElement.scrollHeight;
 
-      // Start fading in the overlay once we've scrolled 20% of viewport
-      const fadeStart = windowHeight * 0.2;
-      // Complete the fade at 80% of viewport height
-      const fadeEnd = windowHeight * 0.8;
+      // Calculate scroll progress
+      const maxScroll = documentHeight - windowHeight;
+      const scrollProgress = Math.min(scrollY / maxScroll, 1);
 
-      let progress = 0;
+      // Color overlay
+      const colorOpacity = Math.min(scrollProgress * 1.2, 1);
+      overlayRef.current.style.opacity = colorOpacity;
 
-      if (scrollY >= fadeStart) {
-        progress = Math.min((scrollY - fadeStart) / (fadeEnd - fadeStart), 1);
+      // Title - zooms out first
+      if (titleRef.current) {
+        const titleScale = 8 - (scrollProgress * 7);
+        const titleOpacity = Math.min(scrollProgress * 3, 1);
+        titleRef.current.style.transform = `translate(-50%, -50%) scale(${Math.max(titleScale, 1)})`;
+        titleRef.current.style.opacity = titleOpacity;
       }
 
-      // Apply the fade effect
-      overlayRef.current.style.opacity = progress;
+      // Subtitle - zooms out second
+      if (subtitleRef.current) {
+        const subtitleDelay = Math.max(0, (scrollProgress - 0.2) * 1.25);
+        const subtitleScale = 4 - (subtitleDelay * 3);
+        const subtitleOpacity = Math.min(subtitleDelay * 3, 1);
+        subtitleRef.current.style.transform = `translate(-50%, -50%) scale(${Math.max(subtitleScale, 1)})`;
+        subtitleRef.current.style.opacity = subtitleOpacity;
+      }
+
+      // Circle - appears from outside
+      if (circleRef.current) {
+        const circleDelay = Math.max(0, (scrollProgress - 0.4) * 1.67);
+        const circleScale = 20 - (circleDelay * 19);
+        const circleOpacity = Math.min(circleDelay * 2, 0.3);
+        circleRef.current.style.transform = `translate(-50%, -50%) scale(${Math.max(circleScale, 1)})`;
+        circleRef.current.style.opacity = circleOpacity;
+      }
     }
 
     window.addEventListener('scroll', onScroll, { passive: true });
-
-    // Initial call to set the correct state
     onScroll();
 
     return () => {
@@ -39,8 +60,7 @@ export default function ScrollAnimation() {
 
   return (
     <div className="scroll-container">
-      {/* Fixed hero section */}
-      <section ref={heroRef} className="hero-section">
+      <section ref={containerRef} className="hero-section">
         <div className="image-container">
           <img
             src="/src/assets/max-running-header.webp"
@@ -49,22 +69,23 @@ export default function ScrollAnimation() {
           />
           <div ref={overlayRef} className="color-overlay"></div>
         </div>
-        <div className="hero-content">
-          <h1>Your Hero Title</h1>
-          <p>This image stays fixed while you scroll</p>
-        </div>
+
+        {/* Background circle */}
+        <div ref={circleRef} className="background-circle"></div>
+
+        {/* Title */}
+        <h1 ref={titleRef} className="zoom-title">AMAZING</h1>
+
+        {/* Subtitle */}
+        <p ref={subtitleRef} className="zoom-subtitle">Scroll Experience</p>
       </section>
 
-      {/* Content that scrolls over the hero */}
       <section className="content-section">
         <div className="scrolling-content">
-          <h2>Content Section</h2>
-          <p>This content scrolls over the fixed hero image</p>
-          <p>As you scroll, the hero image gradually fades to a blue color</p>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-          {/* Add more content to make scrolling visible */}
-          {Array(10).fill().map((_, i) => (
-            <p key={i}>More scrolling content...</p>
+          <h2>Welcome</h2>
+          <p>Now you've experienced the zoom out effect!</p>
+          {Array(15).fill().map((_, i) => (
+            <p key={i}>Continue scrolling to see more content...</p>
           ))}
         </div>
       </section>

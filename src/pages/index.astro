@@ -4,7 +4,7 @@ import ScrollAnimation from '../components/ScrollAnimation.jsx';
 import SmoothScroll from '../components/SmoothScroll.jsx';
 ---
 
-<Layout title="Fixed Hero with Color Fade">
+<Layout title="Zoom Out Effect">
   <SmoothScroll client:load>
     <ScrollAnimation client:load />
   </SmoothScroll>
@@ -22,6 +22,7 @@ import SmoothScroll from '../components/SmoothScroll.jsx';
   body {
     font-family: 'Inter', sans-serif;
     line-height: 1.6;
+    overflow-x: hidden;
   }
 
   .scroll-container {
@@ -29,18 +30,19 @@ import SmoothScroll from '../components/SmoothScroll.jsx';
   }
   
   .hero-section {
-    position: fixed;
+    position: sticky;
     top: 0;
-    left: 0;
     width: 100%;
     height: 100vh;
     overflow: hidden;
   }
   
   .image-container {
-    position: relative;
+    position: absolute;
     width: 100%;
     height: 100%;
+    top: 0;
+    left: 0;
   }
   
   .hero-image {
@@ -60,40 +62,54 @@ import SmoothScroll from '../components/SmoothScroll.jsx';
     transition: opacity 0.1s ease;
   }
   
-  .hero-content {
+  .text-container {
     position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+    overflow: hidden;
+  }
+  
+  .zoom-text {
     text-align: center;
     color: white;
-    z-index: 10;
+    transform-origin: center center;
+    opacity: 0;
+    transition: transform 0.1s ease, opacity 0.1s ease;
   }
-  
-  .hero-content h1 {
-    font-size: 4rem;
-    margin-bottom: 1rem;
+
+  .zoom-text h1 {
+    font-size: 8rem;
+    margin-bottom: 2rem;
     text-shadow: 0 2px 8px rgba(0,0,0,0.7);
     font-weight: 700;
+    white-space: nowrap;
   }
-  
-  .hero-content p {
-    font-size: 1.25rem;
+
+  .zoom-text p {
+    font-size: 2rem;
     text-shadow: 0 2px 4px rgba(0,0,0,0.7);
+    white-space: nowrap;
   }
 
   .content-section {
     position: relative;
     z-index: 5;
-    margin-top: 100vh; /* Start content below the hero */
-    background-color: white;
-    min-height: 200vh; /* Make sure there's enough content to scroll */
+    height: 200vh; /* Make this tall enough to allow the zoom effect to complete */
+    background-color: transparent;
   }
 
   .scrolling-content {
     max-width: 800px;
     margin: 0 auto;
     padding: 4rem 2rem;
+    padding-top: 50vh; /* Push content down so it appears after zoom completes */
+    background-color: transparent;
   }
 
   .scrolling-content h2 {
@@ -110,12 +126,12 @@ import SmoothScroll from '../components/SmoothScroll.jsx';
 
   /* Responsive design */
   @media (max-width: 768px) {
-    .hero-content h1 {
-      font-size: 2.5rem;
+    .zoom-text h1 {
+      font-size: 4rem;
     }
 
-    .hero-content p {
-      font-size: 1rem;
+    .zoom-text p {
+      font-size: 1.5rem;
     }
 
     .scrolling-content {
@@ -124,6 +140,62 @@ import SmoothScroll from '../components/SmoothScroll.jsx';
 
     .scrolling-content h2 {
       font-size: 2rem;
+    }
+  }
+
+  .background-circle {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.1);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    transform-origin: center center;
+    pointer-events: none;
+    opacity: 0;
+  }
+
+  .zoom-title {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(8);
+    transform-origin: center center;
+    color: white;
+    font-size: 8rem;
+    font-weight: 900;
+    text-shadow: 0 4px 20px rgba(0,0,0,0.8);
+    opacity: 0;
+    white-space: nowrap;
+    letter-spacing: 0.5rem;
+  }
+
+  .zoom-subtitle {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(4);
+    transform-origin: center center;
+    color: white;
+    font-size: 2rem;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.7);
+    opacity: 0;
+    margin-top: 6rem;
+    white-space: nowrap;
+  }
+
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .zoom-title {
+      font-size: 4rem;
+      letter-spacing: 0.2rem;
+    }
+
+    .zoom-subtitle {
+      font-size: 1.5rem;
+      margin-top: 4rem;
     }
   }
 </style>
