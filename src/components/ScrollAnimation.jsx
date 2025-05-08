@@ -2,14 +2,11 @@ import { useEffect, useRef } from 'react';
 
 export default function ScrollAnimation() {
   const containerRef = useRef(null);
-  const overlayRef = useRef(null);
-  const titleRef = useRef(null);
-  const subtitleRef = useRef(null);
-  const circleRef = useRef(null);
+  const svgRef = useRef(null);
 
   useEffect(() => {
     function onScroll() {
-      if (!containerRef.current || !overlayRef.current) return;
+      if (!containerRef.current || !svgRef.current) return;
 
       const scrollY = window.scrollY;
       const windowHeight = window.innerHeight;
@@ -19,35 +16,15 @@ export default function ScrollAnimation() {
       const maxScroll = documentHeight - windowHeight;
       const scrollProgress = Math.min(scrollY / maxScroll, 1);
 
-      // Color overlay
-      const colorOpacity = Math.min(scrollProgress * 1.2, 1);
-      overlayRef.current.style.opacity = colorOpacity;
+      // Text zoom effect (starts at 8x and scales down to 1x)
+      const scale = 30 - (scrollProgress * 28);
 
-      // Title - zooms out first
-      if (titleRef.current) {
-        const titleScale = 8 - (scrollProgress * 7);
-        const titleOpacity = Math.min(scrollProgress * 3, 1);
-        titleRef.current.style.transform = `translate(-50%, -50%) scale(${Math.max(titleScale, 1)})`;
-        titleRef.current.style.opacity = titleOpacity;
-      }
+      // Opacity for the entire text
+      const opacity = Math.min(scrollProgress * 4, 1);
 
-      // Subtitle - zooms out second
-      if (subtitleRef.current) {
-        const subtitleDelay = Math.max(0, (scrollProgress - 0.2) * 1.25);
-        const subtitleScale = 4 - (subtitleDelay * 3);
-        const subtitleOpacity = Math.min(subtitleDelay * 3, 1);
-        subtitleRef.current.style.transform = `translate(-50%, -50%) scale(${Math.max(subtitleScale, 1)})`;
-        subtitleRef.current.style.opacity = subtitleOpacity;
-      }
-
-      // Circle - appears from outside
-      if (circleRef.current) {
-        const circleDelay = Math.max(0, (scrollProgress - 0.4) * 1.67);
-        const circleScale = 20 - (circleDelay * 19);
-        const circleOpacity = Math.min(circleDelay * 2, 0.3);
-        circleRef.current.style.transform = `translate(-50%, -50%) scale(${Math.max(circleScale, 1)})`;
-        circleRef.current.style.opacity = circleOpacity;
-      }
+      // Apply scale transformation to SVG
+      svgRef.current.style.transform = `scale(${scale})`;
+      svgRef.current.style.opacity = opacity;
     }
 
     window.addEventListener('scroll', onScroll, { passive: true });
@@ -61,31 +38,52 @@ export default function ScrollAnimation() {
   return (
     <div className="scroll-container">
       <section ref={containerRef} className="hero-section">
-        <div className="image-container">
-          <img
-            src="/src/assets/max-running-header.webp"
-            alt="Hero"
-            className="hero-image"
-          />
-          <div ref={overlayRef} className="color-overlay"></div>
+        {/* Static background image first */}
+        <div className="background-image"></div>
+
+        {/* Foreground that covers the image except where the text is */}
+        <div className="foreground-layer">
+          <svg
+            ref={svgRef}
+            className="text-mask-svg"
+            width="100%"
+            height="100%"
+            viewBox="0 0 100 100"
+            preserveAspectRatio="xMidYMid meet"
+          >
+            <defs>
+              <mask id="textMask">
+                <rect width="100%" height="100%" fill="white" />
+                <text
+                  x="50"
+                  y="50"
+                  fill="black"
+                  fontSize="8"
+                  fontWeight="900"
+                  textAnchor="middle"
+                  dominantBaseline="middle"
+                  letterSpacing="-0.3"
+                >
+                  ATTWELL
+                </text>
+              </mask>
+            </defs>
+            <rect
+              width="100%"
+              height="100%"
+              fill="#fbf1c7"
+              mask="url(#textMask)"
+            />
+          </svg>
         </div>
-
-        {/* Background circle */}
-        <div ref={circleRef} className="background-circle"></div>
-
-        {/* Title */}
-        <h1 ref={titleRef} className="zoom-title">AMAZING</h1>
-
-        {/* Subtitle */}
-        <p ref={subtitleRef} className="zoom-subtitle">Scroll Experience</p>
       </section>
 
       <section className="content-section">
         <div className="scrolling-content">
-          <h2>Welcome</h2>
-          <p>Now you've experienced the zoom out effect!</p>
-          {Array(15).fill().map((_, i) => (
-            <p key={i}>Continue scrolling to see more content...</p>
+          <h2>Content Below</h2>
+          <p>This content appears after the effect completes</p>
+          {Array(10).fill().map((_, i) => (
+            <p key={i}>Continue scrolling...</p>
           ))}
         </div>
       </section>
