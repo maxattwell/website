@@ -8,5 +8,4 @@ export default defineConfig({
   site: 'https://maxattwell.github.io',
   base: 'website',
   integrations: [react()]
-  output: 'static'
 });
