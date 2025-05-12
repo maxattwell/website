@@ -16,7 +16,7 @@ export const ANIMATION_CONFIG = {
       startExit: 1900,
       completeExit: 2000,
     },
-    history: {
+    project: {
       title: 1950,
       image: 2050,
       paragraph: 2150,
@@ -131,20 +131,20 @@ export const calculateProjectsAnimations = (scrollY) => {
   };
 };
 
-export const calculateHistoryAnimations = (scrollY) => {
+export const calculateProjectAnimations = (scrollY) => {
   const titleProgress = getProgress(
-    ANIMATION_CONFIG.triggers.history.title,
-    ANIMATION_CONFIG.triggers.history.title + ANIMATION_CONFIG.values.slide.duration,
+    ANIMATION_CONFIG.triggers.project.title,
+    ANIMATION_CONFIG.triggers.project.title + ANIMATION_CONFIG.values.slide.duration,
     scrollY
   );
   const imageProgress = getProgress(
-    ANIMATION_CONFIG.triggers.history.image,
-    ANIMATION_CONFIG.triggers.history.image + ANIMATION_CONFIG.values.slide.duration,
+    ANIMATION_CONFIG.triggers.project.image,
+    ANIMATION_CONFIG.triggers.project.image + ANIMATION_CONFIG.values.slide.duration,
     scrollY
   );
   const paragraphProgress = getProgress(
-    ANIMATION_CONFIG.triggers.history.paragraph,
-    ANIMATION_CONFIG.triggers.history.paragraph + ANIMATION_CONFIG.values.slide.duration,
+    ANIMATION_CONFIG.triggers.project.paragraph,
+    ANIMATION_CONFIG.triggers.project.paragraph + ANIMATION_CONFIG.values.slide.duration,
     scrollY
   );
 

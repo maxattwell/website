@@ -2,7 +2,7 @@ import { useCallback } from 'react';
 import {
   calculateHeroAnimations,
   calculateProjectsAnimations,
-  calculateHistoryAnimations
+  calculateProjectAnimations
 } from './ScrollAnimationConfig';
 
 export function useScrollAnimations(refs) {
@@ -30,25 +30,25 @@ export function useScrollAnimations(refs) {
     refs.projectsRef.current.style.transform = `translateY(${animations.translateY}%)`;
   }, [refs]);
 
-  const updateHistoryAnimations = useCallback((scrollY) => {
-    if (!refs.historyRefs || !refs.historyRefs.historyRef.current) return;
+  const updateProjectAnimations = useCallback((scrollY) => {
+    if (!refs.projectRefs || !refs.projectRefs.projectRef.current) return;
 
-    const animations = calculateHistoryAnimations(scrollY);
+    const animations = calculateProjectAnimations(scrollY);
 
     // Apply transformations
-    refs.historyRefs.titleRef.current.style.transform = `translateX(${animations.title.translateX}%)`;
-    refs.historyRefs.titleRef.current.style.opacity = animations.title.opacity;
+    refs.projectRefs.titleRef.current.style.transform = `translateX(${animations.title.translateX}%)`;
+    refs.projectRefs.titleRef.current.style.opacity = animations.title.opacity;
 
-    refs.historyRefs.imageRef.current.style.transform = `translateX(${animations.image.translateX}%)`;
-    refs.historyRefs.imageRef.current.style.opacity = animations.image.opacity;
+    refs.projectRefs.imageRef.current.style.transform = `translateX(${animations.image.translateX}%)`;
+    refs.projectRefs.imageRef.current.style.opacity = animations.image.opacity;
 
-    refs.historyRefs.paragraphRef.current.style.transform = `translateX(${animations.paragraph.translateX}%)`;
-    refs.historyRefs.paragraphRef.current.style.opacity = animations.paragraph.opacity;
+    refs.projectRefs.paragraphRef.current.style.transform = `translateX(${animations.paragraph.translateX}%)`;
+    refs.projectRefs.paragraphRef.current.style.opacity = animations.paragraph.opacity;
   }, [refs]);
 
   return {
     updateHeroAnimations,
     updateProjectsAnimations,
-    updateHistoryAnimations,
+    updateProjectAnimations,
   };
 }

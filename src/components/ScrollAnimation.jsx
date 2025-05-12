@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 import HeroSection from './HeroSection';
-import HistorySection from './HistorySection';
+import ProjectSection from './ProjectSection';
 import { useScrollAnimations } from './useScrollAnimations';
 
 export default function ScrollAnimation() {
@@ -11,10 +11,10 @@ export default function ScrollAnimation() {
 
   const projectsRef = useRef(null);
 
-  const historyRef = useRef(null);
-  const historyTitleRef = useRef(null);
-  const historyImageRef = useRef(null);
-  const historyParagraphRef = useRef(null);
+  const projectRef = useRef(null);
+  const projectTitleRef = useRef(null);
+  const projectImageRef = useRef(null);
+  const projectParagraphRef = useRef(null);
 
   const refs = {
     heroRefs: {
@@ -24,18 +24,18 @@ export default function ScrollAnimation() {
       backgroundRef
     },
     projectsRef,
-    historyRefs: {
-      historyRef,
-      titleRef: historyTitleRef,
-      imageRef: historyImageRef,
-      paragraphRef: historyParagraphRef,
+    projectRefs: {
+      projectRef,
+      titleRef: projectTitleRef,
+      imageRef: projectImageRef,
+      paragraphRef: projectParagraphRef,
     }
   };
 
   const {
     updateHeroAnimations,
     updateProjectsAnimations,
-    updateHistoryAnimations,
+    updateProjectAnimations,
   } = useScrollAnimations(refs);
 
   useEffect(() => {
@@ -44,7 +44,7 @@ export default function ScrollAnimation() {
 
       updateHeroAnimations(scrollY);
       updateProjectsAnimations(scrollY);
-      updateHistoryAnimations(scrollY);
+      updateProjectAnimations(scrollY);
     }
 
     window.addEventListener('scroll', onScroll, { passive: true });
@@ -53,7 +53,7 @@ export default function ScrollAnimation() {
     return () => {
       window.removeEventListener('scroll', onScroll);
     };
-  }, [updateHeroAnimations, updateProjectsAnimations, updateHistoryAnimations]);
+  }, [updateHeroAnimations, updateProjectsAnimations, updateProjectAnimations]);
 
   return (
     <div className="scroll-container">
@@ -63,7 +63,7 @@ export default function ScrollAnimation() {
         <h2>Web Projects</h2>
       </section>
 
-      <HistorySection refs={refs.historyRefs} />
+      <ProjectSection refs={refs.projectRefs} />
     </div>
   );
 }
