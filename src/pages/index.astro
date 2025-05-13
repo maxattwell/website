@@ -1,12 +1,12 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import ScrollAnimation from '../components/ScrollAnimation.jsx';
+import MainPortfolio from '../components/MainPortfolio.jsx';
 import SmoothScroll from '../components/SmoothScroll.jsx';
 ---
 
 <Layout title="Image-Masked Text Zoom">
   <SmoothScroll client:load>
-    <ScrollAnimation client:load />
+    <MainPortfolio client:load />
   </SmoothScroll>
 </Layout>
 
@@ -25,7 +25,7 @@ import SmoothScroll from '../components/SmoothScroll.jsx';
     overflow-x: hidden;
   }
 
-  .scroll-container {
+  .portfolio-container {
     height: 3500px;
     overflow-x: hidden;
     background-color: #282828;
@@ -133,14 +133,13 @@ import SmoothScroll from '../components/SmoothScroll.jsx';
   }
 
   .project-media {
-    display: flex;
     gap: 2rem;
     align-items: center;
   }
 
   .project-image-container {
     flex: 1;
-    opacity: 0;
+    opacity: 1;
   }
 
   .project-image {
@@ -156,7 +155,7 @@ import SmoothScroll from '../components/SmoothScroll.jsx';
     font-size: clamp(1rem, 2vw, 1.5rem);
     line-height: 1.6;
     color: #333;
-    opacity: 0;
+    opacity: 1;
   }
 
   /* Responsive design */
@@ -164,5 +163,39 @@ import SmoothScroll from '../components/SmoothScroll.jsx';
     .project-media {
       flex-direction: column;
     }
+  }
+
+
+  /* Add this to your CSS file */
+
+  .tech-badges {
+    display: flex;
+    gap: 10px;
+    margin: 15px 0 25px 0;
+    flex-wrap: wrap;
+  }
+
+  .tech-badge {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    border-radius: 20px;
+    color: white;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: default;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .tech-badge svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .tech-badge:hover {
+    transform: translateY(-5px) !important; /* !important to override the animation transform */
+    box-shadow: 0 7px 15px rgba(0, 0, 0, 0.2);
   }
 </style>
