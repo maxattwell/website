@@ -133,12 +133,19 @@ import SmoothScroll from '../components/SmoothScroll.jsx';
   }
 
   .project-media {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+  }
+
+  .right-content {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
     gap: 2rem;
-    align-items: center;
   }
 
   .project-image-container {
-    flex: 1;
     opacity: 1;
   }
 
@@ -161,7 +168,11 @@ import SmoothScroll from '../components/SmoothScroll.jsx';
   /* Responsive design */
   @media (max-width: 768px) {
     .project-media {
-      flex-direction: column;
+      justify-content: center;
+    }
+    
+    .right-content {
+      width: 90%;
     }
   }
 
