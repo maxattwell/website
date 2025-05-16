@@ -26,7 +26,6 @@ const HeroSection = ({ refs }) => {
 
   // Animation function defined within the component
   const updateAnimations = useCallback((scrollY) => {
-    console.log(scrollY)
     if (!refs.heroRef.current || !refs.subHeroRef.current ||
         !refs.svgRef.current || !refs.backgroundRef.current) return;
 
