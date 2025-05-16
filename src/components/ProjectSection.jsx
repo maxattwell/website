@@ -50,10 +50,8 @@ const ProjectSection = ({ refs }) => {
   // Tech badges data
   const techBadges = [
     { icon: <VueIcon />, name: "Vue", color: "#42b883" },
-    { icon: <JavaScriptIcon />, name: "JavaScript", color: "#f0db4f" },
     { icon: <TailwindIcon />, name: "Tailwind", color: "#38bdf8" },
     { icon: <TypeScriptIcon />, name: "TypeScript", color: "#007acc" },
-    { icon: <ReactIcon />, name: "React", color: "#61dafb" }
   ];
 
   // Project section main animation
@@ -127,12 +125,14 @@ const ProjectSection = ({ refs }) => {
     <section ref={refs.projectRef} className="project-section">
       <div className="project-content">
         <div ref={refs.titleRef} className="project-title">
-          <div className="app-icon-container">
-            <img src="/src/assets/bexfit-icon.png" alt="BexFit App" className="app-icon" />
-            <a href="https://www.bexfit.co" target="_blank" rel="noopener noreferrer" className="app-link">
-              <LinkIcon />
-              www.bexfit.co
-            </a>
+          <div className="left-content">
+            <div className="app-icon-container">
+              <img src="/src/assets/bexfit-icon.png" alt="BexFit App" className="app-icon" />
+              {/* <a href="https://www.bexfit.co" target="_blank" rel="noopener noreferrer" className="app-link"> */}
+              {/*   <LinkIcon /> */}
+              {/*   www.bexfit.co */}
+              {/* </a> */}
+            </div>
           </div>
         </div>
 
@@ -156,8 +156,7 @@ const ProjectSection = ({ refs }) => {
               <img src="/src/assets/iphones_image.png" alt="Project" className="project-image" />
             </div>
             <p ref={refs.paragraphRef} className="project-paragraph">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-              Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+              BEXFIT is a custom platform built to replace TrueCoach for an online personal training business. It includes a marketing website to showcase services, a web app for trainers to create programs and manage clients, and a progressive web app for clients to view and complete their personalized training sessions.
             </p>
           </div>
         </div>

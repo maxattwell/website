@@ -54,7 +54,8 @@ const TechBadge = ({ icon, name, color, triggerScrollY, index, animationConfig }
       ref={badgeRef}
       className="tech-badge"
       style={{
-        backgroundColor: color,
+        backgroundColor: '#fbf1c7',
+        color: 'black',
         opacity: 0, // Start invisible
         transform: 'translateY(20px)' // Start offset
       }}
