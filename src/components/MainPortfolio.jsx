@@ -43,7 +43,7 @@ export default function MainPortfolio() {
   };
 
   return (
-    <div className="portfolio-container">
+    <div className="h-[5000px] overflow-x-hidden bg-[#282828]">
       <HeroSection refs={heroRefs} />
       <ProjectsSection refs={projectsRefs} />
       <ProjectSection refs={projectRefs} />

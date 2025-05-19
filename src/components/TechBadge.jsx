@@ -3,12 +3,12 @@ import scrollManager from '../managers/ScrollManager';
 import { getProgress } from '../utils/scrollHelpers';
 
 // Tech badge component with its own animation state
-const TechBadge = ({ icon, name, color, triggerScrollY, index, animationConfig }) => {
+const TechBadge = ({ icon, name, color, index, animationConfig }) => {
   const badgeRef = useRef(null);
 
   // Calculate the staggered delay based on index
   const staggerDelay = index * animationConfig.staggerDelay;
-  const appearStart = triggerScrollY + staggerDelay;
+  const appearStart = animationConfig.enterStart + staggerDelay;
   const appearEnd = appearStart + animationConfig.duration;
   const exitStart = animationConfig.exitStart + staggerDelay;
   const exitEnd = exitStart + animationConfig.duration;
@@ -35,7 +35,7 @@ const TechBadge = ({ icon, name, color, triggerScrollY, index, animationConfig }
     else if (scrollY >= exitStart && scrollY < exitEnd) {
       const progress = getProgress(exitStart, exitEnd, scrollY);
       opacity = 1 - progress;
-      translateY = -10 * progress; // Move slightly up when fading out
+      translateY = -20 * progress; // Move slightly up when fading out
     }
 
     // Apply animations to the badge
@@ -52,16 +52,11 @@ const TechBadge = ({ icon, name, color, triggerScrollY, index, animationConfig }
   return (
     <div
       ref={badgeRef}
-      className="tech-badge"
-      style={{
-        backgroundColor: '#fbf1c7',
-        color: 'black',
-        opacity: 0, // Start invisible
-        transform: 'translateY(20px)' // Start offset
-      }}
+      className="bg-[#fbf1c7] text-black flex items-center gap-2 rounded-full"
+      style={{ padding: '0.5rem 1rem' }}
     >
-      {icon}
-      <span className="tech-name">{name}</span>
+      <div className="w-5 h-5">{icon}</div>
+      <div className="mx-4">{name}</div>
     </div>
   );
 };

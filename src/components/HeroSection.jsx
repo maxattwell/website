@@ -74,14 +74,14 @@ const HeroSection = ({ refs }) => {
   }, [updateAnimations, componentId]);
 
   return (
-    <section className="hero-section">
-      <div ref={refs.backgroundRef} className="background-image"></div>
-      <div ref={refs.heroRef} className="hero-text-color"></div>
+    <section className="font-['Pirata_One'] fixed w-screen h-screen overflow-hidden top-0 left-0 flex items-center justify-center">
+      <div ref={refs.backgroundRef} className="absolute w-full h-full bg-[url('/src/assets/running-header.webp')] bg-cover bg-center z-[1]"></div>
+      <div ref={refs.heroRef} className="absolute w-full h-full bg-[#fbf1c7] z-[2]"></div>
 
-      <div className="foreground-layer">
+      <div className="absolute w-full h-full z-[3] flex items-center justify-center">
         <svg
           ref={refs.svgRef}
-          className="text-mask-svg"
+          className="origin-center w-screen h-screen"
           width="100vw"
           height="100vh"
           viewBox="0 0 100 100"

@@ -53,9 +53,9 @@ const ProjectsSection = ({ refs }) => {
   }, [updateAnimations, componentId]);
 
   return (
-    <section ref={refs.projectsRef} className="projects-section">
+    <section ref={refs.projectsRef} className="fixed top-0 left-0 w-screen h-screen bg-[#282828] flex items-center justify-center z-[9] opacity-100 transition-none">
       <div ref={refs.projectsMouseRef}>
-        <h2>Web Projects</h2>
+        <h2 className="font-['Pirata_One'] text-[clamp(3rem,8vw,8rem)] z-[2] text-[#fbf1c7] font-semibold">Web Projects</h2>
       </div>
     </section>
   );

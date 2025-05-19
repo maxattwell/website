@@ -20,12 +20,8 @@ const ProjectSection = ({ refs }) => {
       // Title animation points
       titleSlideIn: 1700,
       titleFullyVisible: 1800,
-      titleStayVisibleUntil: 3000,
-      titleCompleteExit: 3100,
-
-      // Tech badges base animation trigger
-      techBadgesBaseAppear: 1800,
-      techBadgesStayVisibleUntil: 3400,
+      titleStayVisibleUntil: 3400,
+      titleCompleteExit: 3800,
 
       // Content appears in viewport around these scroll positions
       contentVisibleStart: 2100,
@@ -35,14 +31,15 @@ const ProjectSection = ({ refs }) => {
       baseScrollPosition: 2300,
     },
     values: {
-      slideDistance: 50,
+      slideDistance: 100,
       contentScrollSpeed: 1,
 
       // Badge animation configuration
       techBadges: {
+        enterStart: 1800,
+        exitStart: 3000,       // When badges start to exit
         staggerDelay: 50,    // ms stagger between each badge
-        duration: 300,        // ms duration of each badge animation
-        exitStart: 2800       // When badges start to exit
+        duration: 300        // ms duration of each badge animation
       }
     }
   };
@@ -96,12 +93,6 @@ const ProjectSection = ({ refs }) => {
     refs.titleRef.current.style.transform = `translateX(${titleTranslateX}%)`;
     refs.titleRef.current.style.opacity = titleOpacity;
     
-    // Ensure the app icon maintains iOS-style appearance
-    const appIcon = refs.titleRef.current.querySelector('.app-icon');
-    if (appIcon) {
-      appIcon.style.borderRadius = '22%';
-      appIcon.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.15)';
-    }
 
     // Simulated scrolling for image and paragraph
     const scrollDifference = scrollY - CONFIG.triggers.baseScrollPosition;
@@ -122,21 +113,16 @@ const ProjectSection = ({ refs }) => {
   }, [updateAnimations, componentId]);
 
   return (
-    <section ref={refs.projectRef} className="project-section">
-      <div className="project-content">
-        <div ref={refs.titleRef} className="project-title">
-          <div className="left-content">
-            <div className="app-icon-container">
-              <div className="magic-hover-padding magic-hover magic-hover__square">
-                <a href="https:www.bexfit.co" target="_blank" rel="noopener noreferrer">
-                  <img src="/src/assets/bexfit-icon.png" alt="BexFit App" className="app-icon" />
-                </a>
-              </div>
-            </div>
+    <section ref={refs.projectRef} className="fixed top-1/3 w-full flex justify-center">
+      <div className="w-[90%] max-w-[1200px] flex flex-col gap-8">
+        <div  className="w-1/2 flex flex-col gap-8 items-center justify-center">
+          <div ref={refs.titleRef} className="magic-hover magic-hover__square">
+            <a href="https:www.bexfit.co" target="_blank" rel="noopener noreferrer">
+              <img src="/src/assets/bexfit-icon.png" alt="BexFit App" className="w-48 h-48 rounded-4xl" />
+            </a>
           </div>
-        </div>
 
-        <div className="tech-badges">
+        <div className="flex gap-3 justify-center flex-wrap w-60">
           {techBadges.map((badge, index) => (
             <TechBadge
               key={index}
@@ -144,19 +130,19 @@ const ProjectSection = ({ refs }) => {
               name={badge.name}
               color={badge.color}
               index={index}
-              triggerScrollY={CONFIG.triggers.techBadgesBaseAppear}
               animationConfig={CONFIG.values.techBadges}
             />
           ))}
         </div>
+        </div>
 
-        <div className="project-media">
-          <div className="right-content">
-            <div ref={refs.imageRef} className="project-image-container">
-              <img src="/src/assets/iphones_image.png" alt="Project" className="project-image" />
+        <div className="flex justify-end">
+          <div className="w-1/2 flex flex-col gap-8">
+            <div ref={refs.imageRef} className="opacity-100">
+              <img src="/src/assets/iphones_image.png" alt="Project" className="w-full h-auto max-h-[400px] object-cover rounded-lg" />
             </div>
             <div>
-              <p ref={refs.paragraphRef} className="project-paragraph">
+              <p ref={refs.paragraphRef} className="flex-1 text-[clamp(1rem,2vw,1.5rem)] leading-[1.6] text-[#fbf1c7] opacity-100">
                 BEXFIT is a custom platform built to replace TrueCoach for an online personal training business. It includes a marketing website to showcase services, a web app for trainers to create programs and manage clients, and a progressive web app for clients to view and complete their personalized training sessions.
               </p>
             </div>
