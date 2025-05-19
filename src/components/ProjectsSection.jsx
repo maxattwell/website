@@ -2,7 +2,7 @@ import { useCallback, useEffect, useId } from 'react';
 import scrollManager from '../managers/ScrollManager';
 import { getProgress } from '../utils/scrollHelpers';
 
-const ProjectsSection = ({ projectsRef }) => {
+const ProjectsSection = ({ refs }) => {
   const componentId = useId(); // Generate unique ID for this component instance
 
   // Config values colocated directly within the component
@@ -20,7 +20,7 @@ const ProjectsSection = ({ projectsRef }) => {
 
   // Animation function defined within the component
   const updateAnimations = useCallback((scrollY) => {
-    if (!projectsRef.current) return;
+    if (!refs.projectsRef.current || !refs.projectsMouseRef.current) return;
 
     const entryProgress = getProgress(
       CONFIG.triggers.startEntry,
@@ -43,8 +43,8 @@ const ProjectsSection = ({ projectsRef }) => {
       translateY = -exitProgress * CONFIG.values.translateDistance;
     }
 
-    projectsRef.current.style.transform = `translateY(${translateY}%)`;
-  }, [projectsRef]);
+    refs.projectsRef.current.style.transform = `translateY(${translateY}%)`;
+  }, [refs.projectsRef]);
 
   // Register with scroll manager on mount, unregister on unmount
   useEffect(() => {
@@ -53,8 +53,10 @@ const ProjectsSection = ({ projectsRef }) => {
   }, [updateAnimations, componentId]);
 
   return (
-    <section ref={projectsRef} className="projects-section">
-      <h2>Web Projects</h2>
+    <section ref={refs.projectsRef} className="projects-section">
+      <div ref={refs.projectsMouseRef}>
+        <h2>Web Projects</h2>
+      </div>
     </section>
   );
 };

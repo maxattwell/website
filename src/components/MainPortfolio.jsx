@@ -13,6 +13,7 @@ export default function MainPortfolio() {
 
   // Ref for ProjectsSection
   const projectsRef = useRef(null);
+  const projectsMouseRef = useRef(null);
 
   // Refs for ProjectSection
   const projectRef = useRef(null);
@@ -28,6 +29,11 @@ export default function MainPortfolio() {
     backgroundRef
   };
 
+  const projectsRefs = {
+    projectsRef,
+    projectsMouseRef
+  }
+
   const projectRefs = {
     projectRef,
     titleRef: projectTitleRef,
@@ -39,7 +45,7 @@ export default function MainPortfolio() {
   return (
     <div className="portfolio-container">
       <HeroSection refs={heroRefs} />
-      <ProjectsSection projectsRef={projectsRef} />
+      <ProjectsSection refs={projectsRefs} />
       <ProjectSection refs={projectRefs} />
     </div>
   );

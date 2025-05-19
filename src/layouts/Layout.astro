@@ -1,5 +1,6 @@
 ---
 import SmoothScroll from '../components/SmoothScroll.jsx';
+import MagicMouse from '../components/MagicMouse.jsx'
 
 const { title } = Astro.props;
 ---
@@ -15,5 +16,6 @@ const { title } = Astro.props;
     <SmoothScroll client:load>
       <slot />
     </SmoothScroll>
+    <MagicMouse client:only="react" />
   </body>
 </html>

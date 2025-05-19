@@ -42,7 +42,7 @@ const ProjectSection = ({ refs }) => {
       techBadges: {
         staggerDelay: 50,    // ms stagger between each badge
         duration: 300,        // ms duration of each badge animation
-        exitStart: 2400       // When badges start to exit
+        exitStart: 2800       // When badges start to exit
       }
     }
   };
@@ -127,11 +127,11 @@ const ProjectSection = ({ refs }) => {
         <div ref={refs.titleRef} className="project-title">
           <div className="left-content">
             <div className="app-icon-container">
-              <img src="/src/assets/bexfit-icon.png" alt="BexFit App" className="app-icon" />
-              {/* <a href="https://www.bexfit.co" target="_blank" rel="noopener noreferrer" className="app-link"> */}
-              {/*   <LinkIcon /> */}
-              {/*   www.bexfit.co */}
-              {/* </a> */}
+              <div className="magic-hover-padding magic-hover magic-hover__square">
+                <a href="https:www.bexfit.co" target="_blank" rel="noopener noreferrer">
+                  <img src="/src/assets/bexfit-icon.png" alt="BexFit App" className="app-icon" />
+                </a>
+              </div>
             </div>
           </div>
         </div>
@@ -155,9 +155,11 @@ const ProjectSection = ({ refs }) => {
             <div ref={refs.imageRef} className="project-image-container">
               <img src="/src/assets/iphones_image.png" alt="Project" className="project-image" />
             </div>
-            <p ref={refs.paragraphRef} className="project-paragraph">
-              BEXFIT is a custom platform built to replace TrueCoach for an online personal training business. It includes a marketing website to showcase services, a web app for trainers to create programs and manage clients, and a progressive web app for clients to view and complete their personalized training sessions.
-            </p>
+            <div>
+              <p ref={refs.paragraphRef} className="project-paragraph">
+                BEXFIT is a custom platform built to replace TrueCoach for an online personal training business. It includes a marketing website to showcase services, a web app for trainers to create programs and manage clients, and a progressive web app for clients to view and complete their personalized training sessions.
+              </p>
+            </div>
           </div>
         </div>
       </div>
