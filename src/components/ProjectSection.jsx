@@ -115,7 +115,7 @@ const ProjectSection = ({ refs }) => {
         <div  className="w-1/2 flex flex-col gap-8 items-center justify-center">
           <div ref={refs.titleRef} className="magic-hover magic-hover__square">
             <a href="https:www.bexfit.co" target="_blank" rel="noopener noreferrer">
-              <img src={`${import.meta.env.BASE_URL}/src/assets/bexfit-icon.webp`} alt="BexFit App" className="w-48 h-48 rounded-4xl" />
+              <img src={`${import.meta.env.BASE_URL}/bexfit-icon.webp`} alt="BexFit App" className="w-48 h-48 rounded-4xl" />
             </a>
           </div>
 
@@ -136,7 +136,7 @@ const ProjectSection = ({ refs }) => {
         <div className="flex justify-end">
           <div className="w-1/2 flex flex-col gap-8">
             <div ref={refs.imageRef} className="opacity-100">
-              <img src={`${import.meta.env.BASE_URL}/src/assets/iphones_image.webp`} alt="Project" className="w-full h-auto max-h-[400px] object-cover rounded-lg" />
+              <img src={`${import.meta.env.BASE_URL}/iphones_image.webp`} alt="Project" className="w-full h-auto max-h-[400px] object-cover rounded-lg" />
             </div>
             <div>
               <p ref={refs.paragraphRef} className="flex-1 text-[clamp(1rem,2vw,1.5rem)] leading-[1.6] text-[#fbf1c7] opacity-100">
