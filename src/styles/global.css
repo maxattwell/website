@@ -1,1 +1,54 @@
 @import "tailwindcss";
+
+@theme {
+  --animate-fill-text-left: fill-text-left 1s linear infinite;
+  --animate-fill-text-right: fill-text-right 1s linear infinite;
+
+  /* Gruvbox Colors */
+  --color-background:       #282828;
+  --color-foreground:       #ebdbb2;
+  --color-red:      #cc241d;
+  --color-green:    #98971a;
+  --color-yellow:   #d79921;
+  --color-blue:     #458588;
+  --color-purple:   #b16286;
+  --color-aqua:     #689d6a;
+  --color-orange:   #d65d0e;
+  --color-gray:     #a89984;
+
+  --color-dark0:    #282828;
+  --color-dark1:    #3c3836;
+  --color-dark2:    #504945;
+  --color-dark3:    #665c54;
+  --color-dark4:    #7c6f64;
+
+  --color-light0:   #fbf1c7;
+  --color-light1:   #ebdbb2;
+  --color-light2:   #d5c4a1;
+  --color-light3:   #bdae93;
+  --color-light4:   #a89984;
+
+  @keyframes fill-text-left {
+    0% {
+      clip-path: inset(0 100% 0 0);
+    }
+    50% {
+      clip-path: inset(0 0 0 0);
+    }
+    100% {
+      clip-path: inset(0 0 0 0);
+    }
+  }
+
+  @keyframes fill-text-right {
+    0% {
+      clip-path: inset(0 100% 0 0);
+    }
+    50% {
+      clip-path: inset(0 100% 0 0);
+    }
+    100% {
+      clip-path: inset(0 0 0 0);
+    }
+  }
+}

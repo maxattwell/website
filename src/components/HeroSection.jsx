@@ -76,7 +76,7 @@ const HeroSection = ({ refs }) => {
   return (
     <section className="font-['Pirata_One'] fixed w-screen h-screen overflow-hidden top-0 left-0 flex items-center justify-center">
       <div ref={refs.backgroundRef} className="absolute w-full h-full bg-[url('/src/assets/running-header.webp')] bg-cover bg-center z-[1]"></div>
-      <div ref={refs.heroRef} className="absolute w-full h-full bg-[#fbf1c7] z-[2]"></div>
+      <div ref={refs.heroRef} className="absolute w-full h-full bg-foreground z-[2]"></div>
 
       <div className="absolute w-full h-full z-[3] flex items-center justify-center">
         <svg

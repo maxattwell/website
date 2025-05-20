@@ -3,6 +3,7 @@ import { useRef } from 'react';
 import HeroSection from './HeroSection';
 import ProjectSection from './ProjectSection';
 import ProjectsSection from './ProjectsSection';
+import LoadingScreen from './LoadingScreen'
 
 export default function MainPortfolio() {
   // Refs for HeroSection
@@ -44,6 +45,7 @@ export default function MainPortfolio() {
 
   return (
     <div className="h-[5000px] overflow-x-hidden bg-[#282828]">
+      <LoadingScreen />
       <HeroSection refs={heroRefs} />
       <ProjectsSection refs={projectsRefs} />
       <ProjectSection refs={projectRefs} />
