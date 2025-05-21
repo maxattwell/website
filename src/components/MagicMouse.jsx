@@ -10,8 +10,8 @@ export default function MagicMouseInit() {
         "hoverEffect": "circle-move",
         "hoverItemMove": false,
         "defaultCursor": false,
-        "outerWidth": 60,
-        "outerHeight": 60
+        "outerWidth": 30,
+        "outerHeight": 30
       };
 
       magicMouse(options);

@@ -3,7 +3,7 @@ import scrollManager from '../managers/ScrollManager';
 import { getProgress } from '../utils/scrollHelpers';
 
 // Tech badge component with its own animation state
-const TechBadge = ({ icon, name, color, index, animationConfig }) => {
+const TechBadge = ({ icon, name, color, index, componentId, animationConfig }) => {
   const badgeRef = useRef(null);
 
   // Calculate the staggered delay based on index
@@ -45,7 +45,7 @@ const TechBadge = ({ icon, name, color, index, animationConfig }) => {
 
   // Register this badge with the scroll manager
   useEffect(() => {
-    const unregister = scrollManager.register(`tech-badge-${index}`, updateBadgeAnimation);
+    const unregister = scrollManager.register(`tech-badge-${componentId}-${index}`, updateBadgeAnimation);
     return unregister;
   }, [index, updateBadgeAnimation]);
 
